@@ -29,10 +29,18 @@
         return new TimeSpan.init(msecs, seconds, minutes, hours, days);
     };
 
+    // "Static Constructors"
     TimeSpan.FromSeconds = function(seconds) {
-        var newTS = window.TimeSpan(0);
-        newTS.AddSeconds(seconds);
-        return newTS;
+        return window.TimeSpan(0, seconds, 0, 0, 0);
+    }
+    TimeSpan.FromMinutes = function(minutes) {
+        return window.TimeSpan(0, 0, minutes, 0, 0);
+    }
+    TimeSpan.FromHours = function(hours) {
+        return window.TimeSpan(0, 0, 0, hours, 0);
+    }
+    TimeSpan.FromDays = function(days) {
+        return window.TimeSpan(0, 0, 0, 0, days);
     }
 
     TimeSpan = TimeSpan.prototype = {
@@ -45,7 +53,7 @@
             if (this.IsNumeric(msecs)) this.AddMilliseconds(msecs);
             return this;
         },
-        version: "0.0.3",
+        version: "0.0.4",
         TotalMilliseconds: 0,
         // Some Constants
         MsecPerSecond: 1000,
@@ -56,6 +64,8 @@
         Add: function(otherTimeSpan) {
         },
         Substract: function(otherTimeSpan) {
+        },
+        Equals: function(otherTimeSpan) {
         },
         // Addition Functions
         AddMilliseconds: function(milliseconds) {
@@ -98,6 +108,26 @@
         SubstractDays: function(days) {
             if (!this.IsNumeric(days)) return;
             this.TotalMilliseconds -= (days * this.MsecPerDay);
+        },
+        // Getters
+        Milliseconds: function(){
+        },
+        Seconds: function(){
+        },
+        Minutes: function(){
+        },
+        Hours: function(){
+        },
+        Days: function(){
+        },
+        TotalSeconds: function(){
+            return this.TotalMilliseconds / this.MsecPerSecond;
+        },
+        TotalMinutes: function(){
+        },
+        TotalHours: function(){
+        },
+        TotalDays: function(){
         },
         // Helper Functions
         IsNumeric: function(input) {
