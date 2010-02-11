@@ -1,7 +1,7 @@
 ﻿/*!
 * JavaScript TimeSpan Library
 *
-* Copyright (c) 2009 Michael Stum, http://www.Stum.de/
+* Copyright (c) 2010 Michael Stum, http://www.Stum.de/
 * 
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the
@@ -25,25 +25,42 @@
 
 (function() {
 
-    var TimeSpan = window.TimeSpan = function(initialMilliseconds) {
+    var TimeSpan = window.TimeSpan =
+    {
+        FromSeconds: function(seconds) {
+            var newTS = new TimeSpan(0);
+            newTS.AddSeconds(seconds);
+            return newTS;
+        }
+    }
+
+    function(initialMilliseconds) {
         return new TimeSpan.init(initialMilliseconds);
     };
 
-    TimeSpan.FromSeconds = function(seconds) {
-        var newTS = window.TimeSpan(0);
-        newTS.AddSeconds(seconds);
-        return newTS;
-    }
+
 
     TimeSpan = TimeSpan.prototype = {
         init: function(initialMilliseconds) {
             if (initialMilliseconds && initialMilliseconds > 0) Milliseconds = initialMilliseconds;
             return this;
         },
-        version: "0.0.1",
+        version: "0.0.2",
         Milliseconds: 0,
+        Add: function(otherTimeSpan) {
+        },
+        AddMilliseconds: function(milliseconds) {
+        },
         AddSeconds: function(seconds) {
             this.Milliseconds = this.Milliseconds + (seconds * 1000);
+        },
+        AddMinutes: function(minutes) {
+        },
+        AddHours: function(hours) {
+        },
+        AddDays: function(days) {
+        },
+        AddYears: function(years) {
         }
     };
 
