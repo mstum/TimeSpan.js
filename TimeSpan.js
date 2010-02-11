@@ -25,6 +25,7 @@
 
 (function() {
 
+    // Constructor function, all parameters are optional
     var TimeSpan = window.TimeSpan = function(milliseconds, seconds, minutes, hours, days) {
         var _version = "1.0";
         // Some "constants"
