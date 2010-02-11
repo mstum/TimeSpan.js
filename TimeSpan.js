@@ -25,42 +25,69 @@
 
 (function() {
 
-    var TimeSpan = window.TimeSpan =
-    {
-        FromSeconds: function(seconds) {
-            var newTS = new TimeSpan(0);
-            newTS.AddSeconds(seconds);
-            return newTS;
-        }
-    }
-
-    function(initialMilliseconds) {
-        return new TimeSpan.init(initialMilliseconds);
+    var TimeSpan = window.TimeSpan = function(msecs, seconds, minutes, hours, days) {
+        return new TimeSpan.init(msecs, seconds, minutes, hours, days);
     };
 
-
+    TimeSpan.FromSeconds = function(seconds) {
+        var newTS = window.TimeSpan(0);
+        newTS.AddSeconds(seconds);
+        return newTS;
+    }
 
     TimeSpan = TimeSpan.prototype = {
-        init: function(initialMilliseconds) {
-            if (initialMilliseconds && initialMilliseconds > 0) Milliseconds = initialMilliseconds;
+        init: function(msecs, seconds, minutes, hours, days) {
+            this.TotalMilliseconds = 0;
+            if (typeof (days) === "number") this.AddDays(days);
+            if (typeof (hours) === "number") this.AddHours(hours);
+            if (typeof (minutes) === "number") this.AddMinutes(minutes);
+            if (typeof (seconds) === "number") this.AddSeconds(seconds);
+            if (typeof (msecs) === "number") this.AddMilliseconds(msecs);
             return this;
         },
         version: "0.0.2",
-        Milliseconds: 0,
+        TotalMilliseconds: 0,
+        // Some Constants
+        MsecPerSecond: 1000,
+        MsecPerMinute: 60000,
+        MsecPerHour: 3600000,
+        MsecPerDay: 86400000,
+        // Functions to interact with other TimeSpans
         Add: function(otherTimeSpan) {
         },
+        Substract: function(otherTimeSpan) {
+        },
+        // Addition Functions
         AddMilliseconds: function(milliseconds) {
+            this.TotalMilliseconds += milliseconds;
         },
         AddSeconds: function(seconds) {
-            this.Milliseconds = this.Milliseconds + (seconds * 1000);
+            this.TotalMilliseconds += seconds * this.MsecPerSecond;
         },
         AddMinutes: function(minutes) {
+            this.TotalMilliseconds += minutes * this.MsecPerMinute;
         },
         AddHours: function(hours) {
+            this.TotalMilliseconds += hours * this.MsecPerHour;
         },
         AddDays: function(days) {
+            this.TotalMilliseconds += days * this.MsecPerDay;
         },
-        AddYears: function(years) {
+        // Substraction Functions
+        SubstractMilliseconds: function(milliseconds) {
+            this.TotalMilliseconds -= milliseconds;
+        },
+        SubstractSeconds: function(seconds) {
+            this.TotalMilliseconds -= seconds * this.MsecPerSecond;
+        },
+        SubstractMinutes: function(minutes) {
+            this.TotalMilliseconds -= minutes * this.MsecPerMinute;
+        },
+        SubstractHours: function(hours) {
+            this.TotalMilliseconds -= hours * this.MsecPerHour;
+        },
+        SubstractDays: function(days) {
+            this.TotalMilliseconds -= days * this.MsecPerDay;
         }
     };
 
