@@ -26,20 +26,21 @@
 /*global window: false */
 "use strict";
 (function () {
-
-
     // Constructor function, all parameters are optional
     var TimeSpan = window.TimeSpan = function (milliseconds, seconds, minutes, hours, days) {
         var version = "1.1",
-        // Millisecond-constants
-        msecPerSecond = 1000, msecPerMinute = 60000, msecPerHour = 3600000, msecPerDay = 86400000,
-        // Internally we store the TimeSpan as Milliseconds
-        msecs = 0,
+            // Millisecond-constants
+            msecPerSecond = 1000,
+            msecPerMinute = 60000,
+            msecPerHour = 3600000,
+            msecPerDay = 86400000,
+            // Internally we store the TimeSpan as Milliseconds
+            msecs = 0,
 
-        // Helper functions
-        isNumeric = function (input) {
-            return !isNaN(parseFloat(input)) && isFinite(input);
-        };
+            // Helper functions
+            isNumeric = function (input) {
+                return !isNaN(parseFloat(input)) && isFinite(input);
+            };
 
         // Constructor Logic
         if (isNumeric(days)) {
