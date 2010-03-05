@@ -33,6 +33,7 @@ You can initialize a new TimeSpan by calling one of these Functions:
     TimeSpan.FromMinutes
     TimeSpan.FromHours
     TimeSpan.FromDays
+    TimeSpan.FromDates (This behaves differently, see below)
 
 these take a single numeric parameter and create a new TimeSpan.
     var ts = TimeSpan.FromSeconds(45);
@@ -41,6 +42,25 @@ is equivalent to
 
 If the parameter is invalid/not a number, it will just be treated as 0
 but not throw any error.
+
+    TimeSpan.FromDates
+This is different as it takes two dates. The TimeSpan will be the
+difference between these dates.
+
+If the second date is earlier than the first date, the TimeSpan will
+have a negative value. You can pass in "true" as the third parameter
+to force the TimeSpan to be positive always.
+
+Example:
+
+    var date1 = new Date(2010, 3, 1, 10, 10, 5, 0);
+    var date2 = new Date(2010, 3, 1, 10, 10, 10, 0);
+    var ts = TimeSpan.FromDates(date2, date1);
+    var ts2 = TimeSpan.FromDates(date2, date1, true);
+    alert(ts.totalSeconds()); // -5, because we put the later date first
+    alert(ts2.totalSeconds()); // 5, because we passed true as third parameter
+
+
 
 ADDING/SUBTRACTING TIME
 -----------------------
@@ -146,3 +166,16 @@ MISC. FUNCTIONS
 ---------------
     getVersion
 Returns the Version of TimeSpan as a string.
+
+VERSION HISTORY
+---------------
+1.2
+* Added TimeSpan.FromDates Constructor to take two dates
+  and create a TimeSpan from the difference.
+
+1.1
+* Changed naming to follow JavaScript standards
+* Added Documentation
+
+1.0
+* Initial Revision

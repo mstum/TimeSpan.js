@@ -28,7 +28,7 @@
 (function () {
     // Constructor function, all parameters are optional
     var TimeSpan = window.TimeSpan = function (milliseconds, seconds, minutes, hours, days) {
-        var version = "1.1",
+        var version = "1.2",
             // Millisecond-constants
             msecPerSecond = 1000,
             msecPerMinute = 60000,
@@ -215,5 +215,12 @@
     };
     TimeSpan.FromDays = function (days) {
         return new TimeSpan(0, 0, 0, 0, days);
+    };
+    TimeSpan.FromDates = function (firstDate, secondDate, forcePositive) {
+        var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
+        if(forcePositive === true) {
+            differenceMsecs = Math.abs(differenceMsecs);
+        }
+        return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
     };
 }());
