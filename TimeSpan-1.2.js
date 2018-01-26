@@ -201,6 +201,25 @@
         this.getVersion = function () {
             return version;
         };
+        // toString use this format "hh:mm.dd"
+        this.toString = function () {
+            var text = "";
+            var negative = false;
+            if (msecs < 0) {
+                negative = true;
+                text += "-";
+                msecs = Math.abs(msecs)
+            }
+            text += this.to2Digits(Math.floor(this.totalHours())) + ":" + this.to2Digits(this.minutes());
+            if (negative)
+                msecs *= -1;
+            return text;
+        };
+        this.to2Digits = function (n) {
+            if (n < 10)
+                return "0" + n;
+            return n;
+        };
     };
 
     // "Static Constructors"
@@ -223,4 +242,12 @@
         }
         return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
     };
+    TimeSpan.Parse = function (timespanText) {
+        var tokens = timespanText.split(':');
+        var days = tokens[0].split('.');
+        if (days.length == 2)
+            return new TimeSpan(0, tokens[2], tokens[1], days[1], days[0]);
+
+        return new TimeSpan(0, tokens[2], tokens[1], tokens[0], 0);
+    }
 }());
